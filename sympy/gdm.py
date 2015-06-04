@@ -10,7 +10,7 @@ argc = len(argvs)
 
 if argc != 3:
     print("ERROR")
-    quit()
+    sys.exit()
 
 
 #Sympyではこのようにある文字を記号として設定できる！
