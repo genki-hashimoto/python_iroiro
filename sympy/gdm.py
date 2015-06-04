@@ -1,4 +1,5 @@
-import numpy as np
+#最急降下法プログラム
+
 import sys
 import matplotlib.pyplot as plt
 import sympy as sp
@@ -11,9 +12,11 @@ if argc != 3:
     print("ERROR")
     quit()
 
+
+#Sympyではこのようにある文字を記号として設定できる！
 a = sp.Symbol("a")
-f = (a-1)**2 * (a+1)**2
-df = sp.diff(f)
+f = (a-1)**2 * (a+1)**2 #関数の作成は一瞬
+df = sp.diff(f) #微分も一瞬
 eta = float(argvs[2])
 
 i = 1
@@ -21,7 +24,7 @@ ans = []
 ans.append(float(argvs[1]))
 while True:
     print(ans[-1])
-    ans.append(ans[-1] - eta* df.subs([(a,ans[-1])]))
+    ans.append(ans[-1] - eta* df.subs([(a,ans[-1])])) #代入もできるよ！！
 
 
     if ans[-1] == ans[-2]:
