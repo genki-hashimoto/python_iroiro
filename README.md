@@ -4,8 +4,8 @@
 #中身
 ##simulation
 学校の授業で使ったソース
--nibun.py
--hasami.py
+* nibun.py
+* hasami.py
 
 ##sympy
 sympyっていう神ライブラリが神だってテンション上がってつくったものたち
