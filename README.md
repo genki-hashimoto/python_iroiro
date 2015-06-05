@@ -6,6 +6,7 @@
 学校の授業で使ったソース
 * nibun.py
 * hasami.py
+* newton.py
 
 ##sympy
 sympyっていう神ライブラリが神だってテンション上がってつくったものたち
