@@ -1,3 +1,5 @@
+#はさみうち法によるy = 0検出プログラム
+
 import numpy as np
 import sympy as sym
 import math

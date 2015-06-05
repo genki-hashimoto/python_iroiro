@@ -1,3 +1,5 @@
+#二分法によるy = 0算出プログラム
+
 import numpy as np
 import sympy as sym
 import matplotlib.pyplot as plt
