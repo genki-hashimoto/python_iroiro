@@ -9,7 +9,7 @@
 
 ##sympy
 sympyっていう神ライブラリが神だってテンション上がってつくったものたち
-*gdm.py
-  *微分が一瞬、神
-*view_function.py
-  *plotが一瞬、神
+* gdm.py
+  * 微分が一瞬、神
+* view_function.py
+  * plotが一瞬、神
