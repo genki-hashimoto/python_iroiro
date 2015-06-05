@@ -11,16 +11,18 @@ print("b:")
 b = float(input())
 
 x  = sym.Symbol("x")
-f = x**2 - 2
+#f = x**2 - 2
+f = 3*sym.atan(x-1) + x/4
 
 
 ans = 0
-
+i = 0
 while True:
     f_a = f.subs([(x,a)])
     f_b = f.subs([(x,b)])
     w = (a+b) / 2
     f_w = f.subs([(x,w)])
+    print("###", i ,"###")
     print("fa:",f_a)
     print("fb:",f_b)
     print("fw:",f_w)
@@ -34,7 +36,7 @@ while True:
         print("sry, pls reset a and b:(")
         quit()
     else:
-        if math.fabs(f_w) < 0.00000001:
+        if math.fabs(f_w) < 0.00000000001:
             ans = w
             break
         elif f_w < 0:
@@ -47,5 +49,5 @@ while True:
                 a = w
             else:
                 b = w
-
+    i += 1
 print(ans)
