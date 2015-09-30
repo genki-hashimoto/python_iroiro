@@ -56,8 +56,8 @@ def back_propagation(weight, outsig, insig, teacher_sig, sigma, eta):
 						weight[i][j][k] -= eta * delta_j * outsig[i-1][k]
 	return weight
 
-eta = 0.1
-sigma = 4.0
+eta = 0.2
+sigma = 4
 weight = [[[0.0,0.0,0.0],[0.0,0.0,0.0]],\
 					[[0.0,0.0,0.0]]]
 weight = init_weight(weight)
@@ -65,7 +65,22 @@ weight = init_weight(weight)
 newron = []
 #insignal = np.loadtxt("signal.csv", delimiter = ",")
 t_sig = [0,1,1,0]
-insignal = [[0,0],[0,1],[1,0],[1,1]]
+fishA = []
+fishB = []
+for line in open("fishA.train", "r"):
+	items = line.split()
+	fishA.append([float(items[0]),float(items[1])])
+for line in open("fishB.train", "r"):
+	items = line.split()
+	fishB.append([float(items[0]),float(items[1])])
+
+data = []
+t_sig = []
+for a,b in zip(fishA,fishB):
+	data.append(a)
+	t_sig.append(1)
+	data.append(b)
+	t_sig.append(0)
 
 
 gosa_tmp = 0
@@ -75,7 +90,7 @@ while True:
 	#print("##########",i,"#########")
 	gosa = 0
 
-	for (insig,t) in zip(insignal,t_sig):
+	for (insig,t) in zip(data,t_sig):
 		insig = list(insig)
 		#print(weight)
 		newron = list(front(weight, insig,sigma))
@@ -83,13 +98,14 @@ while True:
 
 		#print("NEWRON:",newron)
 		gosa += ((newron[1][0]-t)**2)/2
-		weight = back_propagation(weight, newron,insig, t, sigma, eta)
-	print(gosa)
-	if gosa < 0.05:
+		weight = back_propagation(weight, newron, insig, t, sigma, eta)
+	if i % 1000 == 0:
+		print(i,gosa)
+	if i >= 10000:
 		break;
 	#time.sleep(0.3)
 print(i)
-for insig in insignal:
+for insig in data:
 	insig = list(insig)
 	newron = list(front(weight, insig, sigma))
 	print(newron[1])

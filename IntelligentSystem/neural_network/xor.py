@@ -56,40 +56,47 @@ def back_propagation(weight, outsig, insig, teacher_sig, sigma, eta):
 						weight[i][j][k] -= eta * delta_j * outsig[i-1][k]
 	return weight
 
+
+def roop(eta, sigma, weight, t_sig, insignal):
+	weight = init_weight(weight)
+	newron = []
+	gosa_tmp = 0
+	i = 0
+	while True:
+		i += 1
+		#print("##########",i,"#########")
+		gosa = 0
+
+		for (insig,t) in zip(insignal,t_sig):
+			insig = list(insig)
+			newron = list(front(weight, insig,sigma))
+
+			gosa += ((newron[1][0]-t)**2)/2
+			weight = back_propagation(weight, newron,insig, t, sigma, eta)
+		#print(gosa)
+		if gosa < 0.05:
+			break
+		elif i >= 100000:
+			print("ERROR")
+			break
+		#time.sleep(0.3)
+	print(i)
+	for insig in insignal:
+		insig = list(insig)
+		newron = list(front(weight, insig, sigma))
+		print(newron[1])
+
 eta = 0.1
 sigma = 4.0
-weight = [[[0.0,0.0,0.0],[0.0,0.0,0.0]],\
-					[[0.0,0.0,0.0]]]
-weight = init_weight(weight)
-#print("weight:",weight)
-newron = []
+weight = [[[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0]],\
+					[[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]]]
+
 #insignal = np.loadtxt("signal.csv", delimiter = ",")
 t_sig = [0,1,1,0]
 insignal = [[0,0],[0,1],[1,0],[1,1]]
 
-
-gosa_tmp = 0
-i = 0
-while True:
-	i += 1
-	#print("##########",i,"#########")
-	gosa = 0
-
-	for (insig,t) in zip(insignal,t_sig):
-		insig = list(insig)
-		#print(weight)
-		newron = list(front(weight, insig,sigma))
-		#print(newron[1][0])
-
-		#print("NEWRON:",newron)
-		gosa += ((newron[1][0]-t)**2)/2
-		weight = back_propagation(weight, newron,insig, t, sigma, eta)
-	print(gosa)
-	if gosa < 0.05:
-		break;
-	#time.sleep(0.3)
-print(i)
-for insig in insignal:
-	insig = list(insig)
-	newron = list(front(weight, insig, sigma))
-	print(newron[1])
+roop(eta, sigma, weight, t_sig, insignal)
+#roop(eta, 1, weight, t_sig, insignal)
+#roop(eta, 10, weight, t_sig, insignal)
+#roop(eta, 0.1, weight, t_sig, insignal)
+#roop(eta, 100, weight, t_sig, insignal)

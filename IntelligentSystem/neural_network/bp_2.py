@@ -58,15 +58,14 @@ def back_propagation(weight, outsig, insig, teacher_sig, sigma, eta):
 
 eta = 0.1
 sigma = 4.0
-weight = [[[0.0,0.0,0.0],[0.0,0.0,0.0]],\
-					[[0.0,0.0,0.0]]]
+weight = [[[1.0,1.0,1.0],[1.0,1.0,1.0]],\
+					[[1.0,1.0,1.0]]]
 weight = init_weight(weight)
 #print("weight:",weight)
 newron = []
 #insignal = np.loadtxt("signal.csv", delimiter = ",")
 t_sig = [0,1,1,0]
 insignal = [[0,0],[0,1],[1,0],[1,1]]
-
 
 gosa_tmp = 0
 i = 0
@@ -85,7 +84,7 @@ while True:
 		gosa += ((newron[1][0]-t)**2)/2
 		weight = back_propagation(weight, newron,insig, t, sigma, eta)
 	print(gosa)
-	if gosa < 0.05:
+	if i > 1000:
 		break;
 	#time.sleep(0.3)
 print(i)
