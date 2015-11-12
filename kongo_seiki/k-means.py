@@ -4,6 +4,7 @@ import matplotlib.mlab as mlab
 from sklearn import datasets
 from sklearn.decomposition import PCA
 from sklearn.mixture import GMM
+from sklearn.cluster import KMeans
 
 
 def use_pca(dim,data):
@@ -23,23 +24,12 @@ if __name__ == "__main__":
 	pca_result = use_pca(2,feature)
 	print(pca_result)
 
-	gmm = GMM(n_components=3, covariance_type="full")
-	gmm.fit(pca_result)
-	weights = gmm.weights_
-	means = gmm.means_
-	covars = gmm.covars_
+	km = KMeans(n_clusters=3,)
+	km.fit(pca_result)
+	target = km.labels_
 
-	print("weights:")
-	print(weights)
-	print("means:")
-	print(means)
-	print("covars:")
-	print(covars)
-
-	print(gmm.covars_[0][0][0])
 
 	for data,t in zip(pca_result,target):
-
 		if t == 0:
 			plt.plot(data[0],data[1],"ro")
 		elif t == 1:
@@ -47,7 +37,6 @@ if __name__ == "__main__":
 		else :
 			plt.plot(data[0],data[1],"go")
 
-		#plt.plot(data[0],data[1],"ro")
 
 
 	# 推定したガウス分布を描画
@@ -55,7 +44,7 @@ if __name__ == "__main__":
 	y = np.linspace(-1.5, 1.5, 1000)
 	X, Y = np.meshgrid(x, y)
 
-
+	"""
 	# 各ガウス分布について
 	for k in range(3):
 		# 平均を描画
@@ -66,7 +55,7 @@ if __name__ == "__main__":
 			gmm.means_[k][0], gmm.means_[k][1],
 			gmm.covars_[k][0][1])
 		plt.contour(X, Y, Z)
-
+	"""
 	# メッシュ上の各点での対数尤度の等高線を描画
 	#XX = np.array([X.ravel(), Y.ravel()]).T
 	#Z = gmm.score_samples(XX)[0]
@@ -77,5 +66,5 @@ if __name__ == "__main__":
 	plt.xlim(-4, 4)
 	plt.ylim(-1.5, 1.5)
 
-	#plt.show()
-	plt.savefig("c.png")
+	plt.show()
+	#plt.savefig("a.png")
